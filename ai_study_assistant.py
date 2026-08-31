@@ -56,7 +56,7 @@ def take_quiz():
         subject = "robotics" 
         questions = qwiz_questions[subject]
     elif choice == "5":
-        return 0
+        return 0, 0
     elif choice == "4":
         print("Starting Mixed Qwiz.......")
         all_questions = {}
@@ -66,7 +66,7 @@ def take_quiz():
         questions=all_questions
     else:
         print("Invalid Choice.")
-        return 0
+        return 0, 0
 
     selected_questions = random.sample(list(questions), min(3, len(questions)))
 
@@ -86,7 +86,7 @@ def take_quiz():
     print(f"Final Score: {score}/{len(selected_questions)}")
     print("======================================\n")
 
-    return score
+    return score, len(selected_questions)
 
 # take_quiz()
 
@@ -103,7 +103,9 @@ while True:
 
     elif user == '2':
         print("You choose to Take a quiz.")
-        take_quiz()
+        # take_quiz()
+        score, total = take_quiz()
+        print(f"You got {score} out of {total}\n")
 
     elif user == '3':
         print("You choose to View Your Progress.")
