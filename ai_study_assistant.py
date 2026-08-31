@@ -95,6 +95,10 @@ print("            AI Study Assistant             \n")
 print("===========================================\n")
 print(" 1. Learn a topic\n2. Take a quiz\n3. View progress\n4. Exit\n")
 
+qwizzes_taken = 0
+total_questions = 0
+correct_questions = 0
+
 while True:
     user = input("Enter your Choice: ")
     if user == '1':
@@ -103,12 +107,25 @@ while True:
 
     elif user == '2':
         print("You choose to Take a quiz.")
-        # take_quiz()
         score, total = take_quiz()
+
+        qwizzes_taken = qwizzes_taken + 1
+        total_questions = total_questions + total
+        correct_questions = correct_questions + score
+
         print(f"You got {score} out of {total}\n")
 
     elif user == '3':
-        print("You choose to View Your Progress.")
+        print("\n---------- You Progress -----------")
+        print(f"Qwizzes taken: {qwizzes_taken}")
+        print(f"Total Questions: {total_questions}")
+        print(f"Correct Questions: {correct_questions}")
+
+        if total_questions > 0:
+            percentage = (correct_questions/total_questions) * 100
+            print(f"Overall Score: {percentage:.1f}%")
+        else:
+            print("No qwizzes taken yet.")
         
     elif user == '4':
         print("Good Bye!!")
