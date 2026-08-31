@@ -98,6 +98,7 @@ print(" 1. Learn a topic\n2. Take a quiz\n3. View progress\n4. Exit\n")
 qwizzes_taken = 0
 total_questions = 0
 correct_questions = 0
+best_score = 0
 
 while True:
     user = input("Enter your Choice: ")
@@ -113,6 +114,9 @@ while True:
         total_questions = total_questions + total
         correct_questions = correct_questions + score
 
+        if score > best_score:
+            best_score = score
+
         print(f"You got {score} out of {total}\n")
 
     elif user == '3':
@@ -120,6 +124,7 @@ while True:
         print(f"Qwizzes taken: {qwizzes_taken}")
         print(f"Total Questions: {total_questions}")
         print(f"Correct Questions: {correct_questions}")
+        print(f"Best Qwiz Score: {best_score}")
 
         if total_questions > 0:
             percentage = (correct_questions/total_questions) * 100
