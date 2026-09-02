@@ -105,12 +105,13 @@ qwizzes_taken = 0
 total_questions = 0
 correct_questions = 0
 best_score = 0
+qwizzes = 0
 
 progress = {
-    "python" : {"score": 0, "total": 0},
-    "c" : {"score": 0, "total": 0},
-    "robotics" : {"score": 0, "total": 0},
-    "mixed": {"score": 0, "total": 0}
+    "python" : {"score": 0, "total": 0, "qwizzes": 0},
+    "c" : {"score": 0, "total": 0, "qwizzes": 0 },
+    "robotics" : {"score": 0, "total": 0, "qwizzes": 0},
+    "mixed": {"score": 0, "total": 0, "qwizzes": 0}
 }
 
 while True:
@@ -135,6 +136,7 @@ while True:
 
             progress[subject]["score"] += score
             progress[subject]["total"] += total
+            progress[subject]["qwizzes"] += 1
 
             print(f"You got {score} out of {total}\n")
 
@@ -148,10 +150,11 @@ while True:
         for subject in progress:
             score = progress[subject]["score"]
             total = progress[subject]["total"]
+            qwizzes = progress[subject]["qwizzes"]
 
             if total > 0:
                 percentage = (score/total) * 100
-                print(f"{subject.capitalize():10} : {score}/{total}    {percentage:.2f}%")
+                print(f"{subject.capitalize():10} : {score}/{total}    {percentage:.2f}%     ({qwizzes} quiz)")
             else:
                 print(f"{subject.capitalize():10} : No Qwiz taken yet.")
 
