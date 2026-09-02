@@ -153,8 +153,9 @@ while True:
             qwizzes = progress[subject]["qwizzes"]
 
             if total > 0:
+                qwiz_word = "qwiz" if qwizzes == 1 else "qwizzes"
                 percentage = (score/total) * 100
-                print(f"{subject.capitalize():10} : {score}/{total}    {percentage:.2f}%     ({qwizzes} quiz)")
+                print(f"{subject.capitalize():10} : {score}/{total}    {percentage:.2f}%     ({qwizzes} {qwiz_word}))")
             else:
                 print(f"{subject.capitalize():10} : No Qwiz taken yet.")
 
