@@ -49,24 +49,30 @@ def take_quiz():
     if choice == "1":
         subject = "python"
         questions = qwiz_questions[subject]
+
     elif choice == "2":
         subject = "c"
         questions = qwiz_questions[subject]
+
     elif choice == "3":
         subject = "robotics" 
         questions = qwiz_questions[subject]
+
     elif choice == "5":
-        return 0, 0
+        return 0, 0, 0
+    
     elif choice == "4":
+        subject = "mixed"
         print("Starting Mixed Qwiz.......")
         all_questions = {}
         all_questions.update(qwiz_questions["python"])
         all_questions.update(qwiz_questions["c"])
         all_questions.update(qwiz_questions["robotics"])
         questions=all_questions
+        
     else:
         print("Invalid Choice.")
-        return 0, 0
+        return 0, 0, 0
 
     selected_questions = random.sample(list(questions), min(3, len(questions)))
 
@@ -86,7 +92,7 @@ def take_quiz():
     print(f"Final Score: {score}/{len(selected_questions)}")
     print("======================================\n")
 
-    return score, len(selected_questions)
+    return score, len(selected_questions), subject
 
 # take_quiz()
 
@@ -100,6 +106,13 @@ total_questions = 0
 correct_questions = 0
 best_score = 0
 
+progress = {
+    "python" : {"score": 0, "total": 0},
+    "c" : {"score": 0, "total": 0},
+    "robotics" : {"score": 0, "total": 0},
+    "mixed": {"score": 0, "total": 0}
+}
+
 while True:
     user = input("Enter your Choice: ")
     if user == '1':
@@ -108,23 +121,37 @@ while True:
 
     elif user == '2':
         print("You choose to Take a quiz.")
-        score, total = take_quiz()
+        
+        score, total, subject = take_quiz()
+        if subject == 0:
+            continue
 
-        qwizzes_taken = qwizzes_taken + 1
-        total_questions = total_questions + total
-        correct_questions = correct_questions + score
+        if total > 0:
+            qwizzes_taken = qwizzes_taken + 1
+            total_questions = total_questions + total
+            correct_questions = correct_questions + score
+            if score > best_score:
+                best_score = score
 
-        if score > best_score:
-            best_score = score
+            progress[subject]["score"] += score
+            progress[subject]["total"] += total
 
-        print(f"You got {score} out of {total}\n")
+            print(f"You got {score} out of {total}\n")
 
     elif user == '3':
         print("\n---------- You Progress -----------")
-        print(f"Qwizzes taken: {qwizzes_taken}")
-        print(f"Total Questions: {total_questions}")
-        print(f"Correct Questions: {correct_questions}")
-        print(f"Best Qwiz Score: {best_score}")
+        # print(f"Qwizzes taken: {qwizzes_taken}")
+        # print(f"Total Questions: {total_questions}")
+        # print(f"Correct Questions: {correct_questions}")
+        # print(f"Best Qwiz Score: {best_score}")
+
+        for subject in progress:
+            score = progress[subject]["score"]
+            total = progress[subject]["total"]
+
+            print(f"{subject.capitalize():10} : {score}/{total}")
+
+        print("=========================================")
 
         if total_questions > 0:
             percentage = (correct_questions/total_questions) * 100
