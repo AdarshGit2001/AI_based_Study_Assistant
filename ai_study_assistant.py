@@ -149,7 +149,12 @@ while True:
             score = progress[subject]["score"]
             total = progress[subject]["total"]
 
-            print(f"{subject.capitalize():10} : {score}/{total}")
+            if total > 0:
+                percentage = (score/total) * 100
+                print(f"{subject.capitalize():10} : {score}/{total}    {percentage:.2f}%")
+            else:
+                print(f"{subject.capitalize():10} : No Qwiz taken yet.")
+
 
         print("=========================================")
 
